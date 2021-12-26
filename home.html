@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+	<head>		
+		<meta charset="utf-8">		
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
+		<title>Телефонная база</title>						
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>		
+	</head>
+	<body>
+		<div class="container">
+			<form method="post" action="" id="set">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h1>Телефонная база</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<textarea class="form-control" style="height:300px;" name="phones" placeholder="Вставьте сюда json">{"source_id":1,"items":[{"name":"Анна","phone":"9001234453","email":"mail1@gmail.com"},{"name":"Иван","phone":"+79001234123","email":"mail2@gmail.com"}]}
+						</textarea>
+					</div>					
+				</div>		
+				<div class="row" style="margin-top:20px;">
+					<div class="col-xs-12 text-center">
+						<button type="submit" class="btn btn-success">Отправить</button>
+					</div>
+				</div>				
+			</form>
+			
+			<form method="post" action="" id="get">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h1>Получить информацию по номеру</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<input class="form-control" name="phone" placeholder="Вставьте номер телефона">
+					</div>					
+				</div>		
+				<div class="row" style="margin-top:20px;">
+					<div class="col-xs-12 text-center">
+						<button type="submit" class="btn btn-success">Отправить</button>
+					</div>
+				</div>				
+			</form>
+			
+		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function(){
+				$('#set').submit(function(e){
+					e.preventDefault;
+					$.ajax({
+						type: 'post',
+						url: './contacts',
+						data: $(this).serialize(),					
+						success: function(result){
+							console.log(result);
+						}
+					});
+					return false;
+				});
+				$('#get').submit(function(e){
+					e.preventDefault;
+					$.ajax({
+						type: 'get',
+						url: './contacts',
+						data: $(this).serialize(),					
+						success: function(result){
+							console.log(result);							
+						}
+					});
+					return false;
+				});
+			});
+		</script>
+		
+	</body>
+</html>
